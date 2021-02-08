@@ -6,8 +6,7 @@ This is done locally on the machine, in order to not risk compromising the passw
 The functional explanation is added in the code as comments.
 
 The main idea is that the user gives a password that has to be compared to a database of leaked passwords.
-This is done by using the API of the page https://api.pwnedpasswords.com/range/ that returns a list of hashes
-and a counter corresponding to our hashed password.
+This is done by using the API of the page https://api.pwnedpasswords.com/range/ that returns a list of parts of hashes and a leak-counter corresponding to our password.
 
 If our password was found, the number of leaks will be displayed.
 
