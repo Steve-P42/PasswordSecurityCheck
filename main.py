@@ -35,7 +35,7 @@ def api_data_request(query_chars):
 
     return api_response
 
-
+# this one counts the number of times the pw has been leaked
 def get_pw_leaks_count(hashes, hash_to_check):
     split_hashes = (line.split(':') for line in hashes.text.splitlines())
     for hsh, count in split_hashes:
@@ -51,6 +51,7 @@ def get_pw_leaks_count(hashes, hash_to_check):
 # contains only hex digits, can be sent securely over mail
 # then convert to upper case: 'AAF4C61DDCC5E8A2DABEDE0F3B482CD9AEA9434D'
 
+# this function prepares the password for the request and also calls the counting fct
 def pwned_api_check(password):
     # prepare the password
     sha1password = hashlib.sha1(password.encode('utf-8')).hexdigest().upper()

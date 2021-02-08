@@ -3,4 +3,19 @@
 The purpose of this project is to check if the input the user provides has ever been leaked as a password.
 This is done locally on the machine, in order to not risk compromising the password.
 
-The step by step explanation is added in the code as comments.
+The functional explanation is added in the code as comments.
+
+The main idea is that the user gives a password that has to be compared to a database of leaked passwords.
+This is done by using the API of the page https://api.pwnedpasswords.com/range/ that returns a list of hashes
+and a counter corresponding to our hashed password.
+
+If our password was found, the number of leaks will be displayed.
+
+
+On a side note:
+
+At the time of writing, the password "123456" was found 24230577 times as leaked password, which is laughable considering that password managers exist.
+I personally am a fan of https://keepass.info/ which is a 'free, open source, light-weight and easy-to-use password manager'. I simply love it.
+
+Best,
+Steve
