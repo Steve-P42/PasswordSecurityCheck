@@ -8,14 +8,22 @@
 #    and then you get back the matching hashes, all of them, so they can't know your
 #    specific search, which is pretty smart
 #
-#   execute in terminal: > python main.py <password_to_check>
+#    run the python file in the IDE or the exe file in the dist folder
 #
-#   in case you want to run it through the IDE, some code needs to be un(commented)
-#
+#    in case of execution in terminal - some code needs to be un(commented)
+#    > python main.py <password_to_check>
+
 # %% ################ Imports ####################
+# main functionality for API requests and hashing
 import requests
 import hashlib
+# for the optional terminal call with pw as arguments
 import sys
+# for the optional window termination countdown:
+import time
+# for coloring the output on the terminal:
+from colorama import init
+from termcolor import colored
 
 
 # ################### Functions ####################
@@ -34,6 +42,7 @@ def api_data_request(query_chars):
     # EE606898F30C5C473736BFDAC262955137F:3
 
     return api_response
+
 
 # this one counts the number of times the pw has been leaked
 def get_pw_leaks_count(hashes, hash_to_check):
@@ -70,44 +79,71 @@ def pwned_api_check(password):
     # you need to pass the tail because that's what you get from the API!
 
 
-# ## terminal-call version: (one or the other has to be commented out to work)
-def main(args):
-    for password in args:
-        count = pwned_api_check(password)
+# required initialization for colorama:
+init()
 
-        if int(count) == 1:
-            print(f'The password "{password}" was found {count} time! It would be smart to change your password.')
-        elif int(count) > 1:
-            print(f'The password "{password}" was found {count} times! You should change your PW immediately!!!')
-        else:
-            print(f'"{password}" was NOT found. Carry on!')
+
+# #### IDE-execution version: (one or the other has to be commented out to work) #####
+def main(password):
+
+    count = pwned_api_check(password)
+
+    if int(count) == 1:
+        print(colored(f'The password "{password}" was found {count} time! It would be smart to change your password.',
+              'red'))
+    elif int(count) > 1:
+        print(colored(f'The password "{password}" was found {count} times! You should change your PW immediately!!!',
+              'red'))
+    else:
+        print(colored(f'"{password}" was NOT found. Carry on!', 'green'))
     return 'done!'
 
 
-if __name__ == '__main__':
-    # call with all the passed passwords
-    # and exit so it prints 'done!'
-    sys.exit(main(sys.argv[1:]))
+# asking for user input, aka the password to be checked
+x = input('Your password to check: ')
+main(x)
 
 
-# ### IDE-execution version: (one or the other has to be commented out to work)
-# def main(password):
+# displaying information about when the window of the exe is closing
+# comment this out if you are using the file through an IDE
+time.sleep(3)
+
+for i in range(10, 0, -1):
+    print(colored(f'Window will close in {i} seconds.', 'white', 'on_red'), end='\r', flush=True)
+    time.sleep(1)
+
+print('                                                           ')
+print(colored('There is no spoon.', 'white', 'on_red'))
+time.sleep(1)
+
+
+# #### terminal-call version: (one or the other has to be commented out to work) ######
+# def main(args):
+#     for password in args:
+#         count = pwned_api_check(password)
 #
-#     count = pwned_api_check(password)
-#
-#     if int(count) == 1:
-#         print(f'The password "{password}" was found {count} time! It would be smart to change your password.')
-#     elif int(count) > 1:
-#         print(f'The password "{password}" was found {count} times! You should change your PW immediately!!!')
-#     else:
-#         print(f'"{password}" was NOT found. Carry on!')
+#         if int(count) == 1:
+#             print(colored(f'The password "{password}" was found {count} time! It would be smart to change your password.',
+#               'red'))
+#         elif int(count) > 1:
+#             print(colored(f'The password "{password}" was found {count} times! You should change your PW immediately!!!',
+#               'red'))
+#         else:
+#             print(colored(f'"{password}" was NOT found. Carry on!', 'green'))
 #     return 'done!'
 #
 #
-# x = input('Your password to check: ')
-# main(x)
+# if __name__ == '__main__':
+#     # call with all the passed passwords
+#     # and exit so it prints 'done!'
+#     sys.exit(main(sys.argv[1:]))
 
 
 # %% useful links:
 # https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 # https://passwordsgenerator.net/sha1-hash-generator/
+# https://pypi.org/project/colorama/
+# https://www.pyinstaller.org/
+#   - either create a bundle via:           pyinstaller main.py
+#   - or create a standalone executable:    pyinstaller --onefile main.py
+# will be created in the dist folder
