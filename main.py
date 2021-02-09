@@ -146,4 +146,4 @@ time.sleep(1)
 # https://www.pyinstaller.org/
 #   - either create a bundle via:           pyinstaller main.py
 #   - or create a standalone executable:    pyinstaller --onefile main.py
-# will be created in the dist folder
+# will be created in the dist folder in the PasswordSecurityCheck directory
