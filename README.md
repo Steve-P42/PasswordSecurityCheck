@@ -10,6 +10,9 @@ This is done by using the API of the page https://api.pwnedpasswords.com/range/ 
 
 If our password was found, the number of leaks will be displayed.
 
+The code can be run as is via an IDE, or slightly adapted to be run via the terminal with arguments.
+Or it also contains instructions to create an exe file.
+
 
 On a side note:
 
